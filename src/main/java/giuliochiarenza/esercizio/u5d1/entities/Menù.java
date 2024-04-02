@@ -6,21 +6,21 @@ import java.util.Objects;
 
 public  class Menù {
 
-    public List<Object> items;
+    public List<MenùItem> items;
 
     public Menù() {
         this.items = new ArrayList<>();
     }
 
-    public void addItem(Object item) {
+    public void addItem(MenùItem item) {
         this.items.add(item);
     }
 
-    public List<Object> getItems() {
+    public List<MenùItem> getItems() {
         return items;
     }
 
-    public void setItems(List<Object> items) {
+    public void setItems(List<MenùItem> items) {
         this.items = items;
     }
 

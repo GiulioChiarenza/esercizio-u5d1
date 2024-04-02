@@ -1,13 +1,12 @@
 package giuliochiarenza.esercizio.u5d1.entities;
 
-public class Drink {
+public class Drink extends  MenùItem{
     public String name;
-    public int calories;
-    public double price;
 
-    public Drink(String name, int calories, double price) {
+
+    public Drink(String name, int calorie, double price) {
         this.name = name;
-        this.calories = calories;
+        this.calorie = calorie;
         this.price = price;
     }
 
@@ -19,13 +18,7 @@ public class Drink {
         this.name = name;
     }
 
-    public int getCalories() {
-        return calories;
-    }
 
-    public void setCalories(int calories) {
-        this.calories = calories;
-    }
 
     public double getPrice() {
         return price;
@@ -39,7 +32,7 @@ public class Drink {
     public String toString() {
         return "Drink{" +
                 "name='" + name + '\'' +
-                ", calories=" + calories +
+                ", calories=" + calorie +
                 ", price=" + price +
                 '}';
     }

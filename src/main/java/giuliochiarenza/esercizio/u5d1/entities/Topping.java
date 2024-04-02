@@ -1,14 +1,13 @@
 package giuliochiarenza.esercizio.u5d1.entities;
 
-public class Topping {
+public class Topping extends MenùItem {
     public String name;
-    public int calories;
-    public double Price;
 
-    public Topping(String name, int calories, double price) {
+
+    public Topping(String name, int calorie, double price) {
         this.name = name;
-        this.calories = calories;
-        Price = price;
+        this.calorie = calorie;
+        this.price = price;
     }
 
     public String getName() {
@@ -20,27 +19,27 @@ public class Topping {
     }
 
     public int getCalories() {
-        return calories;
+        return calorie;
     }
 
     public void setCalories(int calories) {
-        this.calories = calories;
+        this.calorie = calories;
     }
 
     public double getPrice() {
-        return Price;
+        return price;
     }
 
     public void setPrice(double price) {
-        Price = price;
+        price = price;
     }
 
     @Override
     public String toString() {
         return "Topping{" +
                 "name='" + name + '\'' +
-                ", calories=" + calories +
-                ", Price=" + Price +
+                ", calories=" + calorie +
+                ", Price=" + price +
                 '}';
     }
 }

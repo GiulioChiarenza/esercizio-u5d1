@@ -14,24 +14,21 @@ import java.awt.*;
 public class BeansConfig {
 
     @Bean
-    @Primary
     public Pizza margherita() {
         return new Pizza("Margherita", 1104, 4.99);
     }
     @Bean
     public Pizza hawaianPizza() {
-        Pizza margherita = margherita();
-        margherita.addTopping("ham");
-        margherita.addTopping("pineapple");
-        margherita.setName("Hawaian Pizza");
-        return margherita;
+        Pizza hawaianPizza = new Pizza("Hawaian Pizza", 1234, 6.49);
+        hawaianPizza.addTopping("ham");
+        hawaianPizza.addTopping("pineapple");
+        return hawaianPizza;
     }
     @Bean
-    public Pizza SalamiPizza(){
-        Pizza margherita = margherita();
-        margherita.addTopping("Salami");
-        margherita.setName("Salami Pizza");
-        return margherita;
+    public Pizza salamiPizza() {
+        Pizza salamiPizza = new Pizza("Salami Pizza", 1300, 5.99);
+        salamiPizza.addTopping("Salami");
+        return salamiPizza;
     }
     @Bean
     public Topping ham() {
@@ -67,12 +64,12 @@ public class BeansConfig {
         return new Drink("wine", 607, 7.49);
     }
     @Bean
-    public Menù menu(Pizza margherita, Pizza hawaianPizza, Pizza Salami, Topping ham, Topping cheese, Topping onion, Topping pineapple, Drink lemonade, Drink water, Drink wine) {
+    public Menù menu(Pizza margherita, Pizza hawaianPizza, Pizza salamiPizza, Topping ham, Topping cheese, Topping onion, Topping pineapple, Drink lemonade, Drink water, Drink wine) {
         Menù menu = new Menù();
 
         menu.addItem(margherita);
         menu.addItem(hawaianPizza);
-        menu.addItem(Salami);
+        menu.addItem(salamiPizza);
         menu.addItem(ham);
         menu.addItem(cheese);
         menu.addItem(onion);

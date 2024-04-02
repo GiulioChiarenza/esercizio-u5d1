@@ -3,20 +3,19 @@ package giuliochiarenza.esercizio.u5d1.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Pizza {
+public class Pizza extends MenùItem {
 
 public String name;
-public int calories;
-public double price;
+
 public List<String> toppings;
 
-    public Pizza(String name, int calories, double price) {
+    public Pizza(String name, int calorie, double price) {
         this.name = name;
-        this.calories = calories;
+        this.calorie = calorie;
         this.price = price;
         this.toppings = new ArrayList<>();
-        this.toppings.add("pomodoro");
-        this.toppings.add("mozzarella");
+        this.toppings.add("tomato");
+        this.toppings.add("cheese");
     }
     public void addTopping(String topping) {
         this.toppings.add(topping);
@@ -30,13 +29,6 @@ public List<String> toppings;
         this.name = name;
     }
 
-    public int getCalories() {
-        return calories;
-    }
-
-    public void setCalories(int calories) {
-        this.calories = calories;
-    }
 
     public double getPrice() {
         return price;
@@ -58,7 +50,7 @@ public List<String> toppings;
     public String toString() {
         return "Pizza{" +
                 "name='" + name + '\'' +
-                ", calories=" + calories +
+                ", calories=" + calorie +
                 ", price=" + price +
                 ", toppings=" + toppings +
                 '}';
