@@ -1,9 +1,7 @@
 package giuliochiarenza.esercizio.u5d1;
 
-import giuliochiarenza.esercizio.u5d1.entities.Drink;
-import giuliochiarenza.esercizio.u5d1.entities.Menù;
-import giuliochiarenza.esercizio.u5d1.entities.Pizza;
-import giuliochiarenza.esercizio.u5d1.entities.Topping;
+import giuliochiarenza.esercizio.u5d1.entities.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -78,5 +76,15 @@ public class BeansConfig {
         menu.addItem(water);
         menu.addItem(wine);
         return menu;
+    }
+
+
+    @Value("${coperto}")
+    private int coperto;
+    @Bean
+    public Ordine ordine() {
+        Ordine ordine = new Ordine();
+        ordine.setCoperto(coperto);
+        return ordine;
     }
 }
