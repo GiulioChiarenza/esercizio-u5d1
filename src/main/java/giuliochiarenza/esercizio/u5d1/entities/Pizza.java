@@ -1,49 +1,43 @@
 package giuliochiarenza.esercizio.u5d1.entities;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
-
+@Getter
 public class Pizza extends MenùItem {
 
 public String name;
 
-public List<String> toppings;
+public List<Topping> toppings;
+public boolean isXl = false;
 
-    public Pizza(String name, int calorie, double price) {
+    public Pizza(String name, List<Topping> toppingList, boolean isXl) {
+        super(700, 4.3);
         this.name = name;
-        this.calorie = calorie;
-        this.price = price;
-        this.toppings = new ArrayList<>();
-        this.toppings.add("tomato");
-        this.toppings.add("cheese");
+        this.toppings = toppingList;
+        this.isXl = isXl;
     }
-    public void addTopping(String topping) {
-        this.toppings.add(topping);
+    @Override
+    public int getCalorie() {
+        return super.getCalorie() + this.getToppings().stream().mapToInt(Topping::getCalorie).sum();
+    }
+
+    @Override
+    public double getPrice() {
+        return super.getPrice() + this.getToppings().stream().mapToDouble(Topping::getPrice).sum();
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public List<String> getToppings() {
+    public List<Topping> getToppings() {
         return toppings;
     }
 
-    public void setToppings(List<String> toppings) {
-        this.toppings = toppings;
+    public boolean isXl() {
+        return isXl;
     }
 
     @Override
@@ -52,7 +46,8 @@ public List<String> toppings;
                 "name='" + name + '\'' +
                 ", calories=" + calorie +
                 ", price=" + price +
-                ", toppings=" + toppings +
+                ", toppingList=" + toppings +
+                ", isXl=" + isXl +
                 '}';
     }
 }

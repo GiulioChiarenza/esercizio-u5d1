@@ -5,9 +5,9 @@ public class Drink extends  MenùItem{
 
 
     public Drink(String name, int calorie, double price) {
+        super(calorie, price );
         this.name = name;
-        this.calorie = calorie;
-        this.price = price;
+
     }
 
     public String getName() {

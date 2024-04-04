@@ -3,84 +3,50 @@ package giuliochiarenza.esercizio.u5d1.entities;
 import lombok.ToString;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
 @ToString
 public class Ordine {
 
-    public List<String> ordine;
+    public List<MenùItem> ordine;
     public int numOrdine;
     public StatoOrdini statoOrdini;
     public int numCoperti;
     public LocalTime oraPrenotazione;
-    public double conto;
-    public int coperto;
+    public Tavolo tavolo;
 
-    public Ordine() {
 
-    }
-
-    public Ordine(List<String> ordine, int numOrdine, StatoOrdini statoOrdini, int numCoperti, LocalTime oraPrenotazione, double conto, int coperto) {
-        this.ordine = ordine;
-        this.numOrdine = numOrdine;
-        this.statoOrdini = statoOrdini;
+    public Ordine(int numCoperti, Tavolo table) {
+        Random rndm = new Random();
+        if (table.getMaxCoperti() <= numCoperti)
+            throw new RuntimeException("Numero coperti maggiore di numero massimo posti sul tavolo!");
+        this.numOrdine = rndm.nextInt(1000, 100000);
+        this.statoOrdini = StatoOrdini.INCORSO;
         this.numCoperti = numCoperti;
-        this.oraPrenotazione = oraPrenotazione;
-        this.conto = conto;
-        this.coperto = coperto;
+        this.oraPrenotazione = LocalTime.now();
+        this.ordine = new ArrayList<>();
+        this.tavolo = table;
     }
+        public void addItem (MenùItem item){
+            this.ordine.add(item);
+        }
 
-    public List<String> getOrdine() {
-        return ordine;
-    }
+        public double getTotal () {
+            return this.ordine.stream().mapToDouble(MenùItem::getPrice).sum() + (this.tavolo.getCostoCoperto() * this.numCoperti);
+        }
 
-    public void setOrdine(List<String> ordine) {
-        this.ordine = ordine;
-    }
+        public void print () {
+            System.out.println("id ordine--> " + this.numOrdine);
+            System.out.println("stato--> " + this.statoOrdini);
+            System.out.println("numero coperti--> " + this.numCoperti);
+            System.out.println("ora prenotazione--> " + this.oraPrenotazione);
+            System.out.println("numero tavolo--> " + this.tavolo.getNum());
+            System.out.println("Lista: ");
+            this.ordine.forEach(System.out::println);
+            System.out.println("totale--> " + this.getTotal());
 
-    public int getNumOrdine() {
-        return numOrdine;
-    }
+        }
 
-    public void setNumOrdine(int numOrdine) {
-        this.numOrdine = numOrdine;
-    }
-
-    public StatoOrdini getStatoOrdini() {
-        return statoOrdini;
-    }
-
-    public void setStatoOrdini(StatoOrdini statoOrdini) {
-        this.statoOrdini = statoOrdini;
-    }
-
-    public int getNumCoperti() {
-        return numCoperti;
-    }
-
-    public void setNumCoperti(int numCoperti) {
-        this.numCoperti = numCoperti;
-    }
-
-    public LocalTime getOraPrenotazione() {
-        return oraPrenotazione;
-    }
-
-    public void setOraPrenotazione(LocalTime oraPrenotazione) {
-        this.oraPrenotazione = oraPrenotazione;
-    }
-
-    public double getConto() {
-        return conto;
-    }
-
-    public void setConto(double conto) {
-        this.conto = conto;
-    }
-    public int getCoperto() {
-        return coperto;
-    }
-
-    public void setCoperto(int coperto) {
-        this.coperto = coperto;
-    }
 }

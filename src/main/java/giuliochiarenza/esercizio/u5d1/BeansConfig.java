@@ -5,28 +5,51 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.PropertySource;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
+@PropertySource("classpath:application.properties")
 public class BeansConfig {
 
     @Bean
-    public Pizza margherita() {
-        return new Pizza("Margherita", 1104, 4.99);
+    public Pizza pizzaMargheritaBean() {
+        List<Topping> tList = new ArrayList<>();
+        tList.add(Tomato());
+        tList.add(cheese());
+        return new Pizza("Pizza Margherita", tList, false);
     }
     @Bean
-    public Pizza hawaianPizza() {
-        Pizza hawaianPizza = new Pizza("Hawaian Pizza", 1234, 6.49);
-        hawaianPizza.addTopping("ham");
-        hawaianPizza.addTopping("pineapple");
-        return hawaianPizza;
+    public Pizza pizzaHawaiianBean() {
+        List<Topping> tList = new ArrayList<>();
+        tList.add(Tomato());
+        tList.add(cheese());
+        tList.add(ham());
+        tList.add(pineapple());
+        return new Pizza("Hawaiian Pizza", tList, false);
     }
     @Bean
-    public Pizza salamiPizza() {
-        Pizza salamiPizza = new Pizza("Salami Pizza", 1300, 5.99);
-        salamiPizza.addTopping("Salami");
-        return salamiPizza;
+    public Pizza pizzaSalamiBean() {
+        List<Topping> tList = new ArrayList<>();
+        tList.add(Tomato());
+        tList.add(cheese());
+        tList.add(salami());
+        return new Pizza("Salami Pizza", tList, false);
+    }
+    @Bean
+    public Pizza pizzaSalamiXlBean() {
+        List<Topping> tList = new ArrayList<>();
+        tList.add(Tomato());
+        tList.add(cheese());
+        tList.add(salami());
+        return new Pizza("Salami Pizza XL", tList, true);
+    }
+    @Bean
+    public Topping Tomato() {
+        return new Topping("Tomato", 0, 0);
     }
     @Bean
     public Topping ham() {
@@ -61,30 +84,49 @@ public class BeansConfig {
     public Drink wine() {
         return new Drink("wine", 607, 7.49);
     }
-    @Bean
-    public Menù menu(Pizza margherita, Pizza hawaianPizza, Pizza salamiPizza, Topping ham, Topping cheese, Topping onion, Topping pineapple, Drink lemonade, Drink water, Drink wine) {
-        Menù menu = new Menù();
+    @Bean("pizzas")
+    List<Pizza> pizzaList() {
+        List<Pizza> pizzas = new ArrayList<>();
+        pizzas.add(pizzaMargheritaBean());
+        pizzas.add(pizzaHawaiianBean());
+        pizzas.add(pizzaSalamiBean());
+        pizzas.add(pizzaSalamiXlBean());
+        return pizzas;
+    }
 
-        menu.addItem(margherita);
-        menu.addItem(hawaianPizza);
-        menu.addItem(salamiPizza);
-        menu.addItem(ham);
-        menu.addItem(cheese);
-        menu.addItem(onion);
-        menu.addItem(pineapple);
-        menu.addItem(lemonade);
-        menu.addItem(water);
-        menu.addItem(wine);
-        return menu;
+    @Bean("drinks")
+    List<Drink> drinksList() {
+        List<Drink> drinks = new ArrayList<>();
+        drinks.add(lemonade());
+        drinks.add(water());
+        drinks.add(wine());
+        return drinks;
+    }
+
+    @Bean("toppings")
+    List<Topping> toppingsList() {
+        List<Topping> toppings = new ArrayList<>();
+        toppings.add(Tomato());
+        toppings.add(cheese());
+        toppings.add(salami());
+        toppings.add(ham());
+        toppings.add(pineapple());
+        return toppings;
     }
 
 
-    @Value("${coperto}")
-    private int coperto;
-    @Bean
-    public Ordine ordine() {
-        Ordine ordine = new Ordine();
-        ordine.setCoperto(coperto);
-        return ordine;
+    @Bean("Tavolo1")
+    Tavolo getTable1(@Value("${seat.price}") double seatPrice) {
+        return new Tavolo(1, 5, true, seatPrice);
+    }
+
+    @Bean("Tavolo2")
+    Tavolo getTable2(@Value("${seat.price}") double seatPrice) {
+        return new Tavolo(2, 4, true, seatPrice);
+    }
+
+    @Bean("Tavolo3")
+    Tavolo getTable3(@Value("${seat.price}") double seatPrice) {
+        return new Tavolo(3, 8, true, seatPrice);
     }
 }
